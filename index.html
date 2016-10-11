@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>BigTime SDK</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      body {
+        padding: 10px;
+      }
+      code {
+        font-family: monospace;
+        border-radius: 2px;
+        background-color: #f2f2f2;
+        border: 1px solid #e5e5e5;
+        padding: 4px;
+      }
+      pre code {
+        background-color: inherit;
+        border: none;
+        padding: 0;
+      }
+      pre {
+        display: inline-block;
+        background-color: #f2f2f2;
+        border-radius: 2px;
+        border: 1px solid #e5e5e5;
+        padding: 10px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BigTime SDK</h1>
+
+    <h2>Usage</h2>
+    <p>Open your console and use <code>window.sdk</code>, which is an instance of <code>BigTimeSdk</code>.</p>
+
+    <h2>Examples</h2>
+    <pre>
+      <code>
+window.sdk.resources.session.post({
+  userid: '...', pwd: '...'
+})
+.then(
+  response => {
+    responseBody = JSON.parse(response.body);
+    return window.sdk.resources.staff.get(null, {
+      headers: {
+        'x-auth-token': responseBody.token,
+        'x-auth-realm': responseBody.firm
+      }
+    });
+  },
+  err => console.log('Error creating session:', err)
+)
+.then(
+  response => {
+    console.log(JSON.parse(response.body));
+  },
+  err => console.log('Error fetching staff listing:', err)
+);
+      </code>
+    </pre>
+
+    <!-- <script src="https://wzrd.in/standalone/popsicle@latest"></script> -->
+    <script src="https://bowercdn.net/c/popsicle-1.4.0/popsicle.js"></script>
+    <script src="/dist/sdk.min.js"></script>
+    <script>
+      window.sdk = new BigTimeSdk();
+    </script>
+  </body>
+</html>

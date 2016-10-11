@@ -1,0 +1,12 @@
+
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "Staff detail retrieval schema",
+  "description": "The response provided after successfully retrieving staff members.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object"
+    }
+  }
+}

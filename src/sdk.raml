@@ -1,0 +1,128 @@
+#%RAML 0.8
+
+# See https://github.com/raml-org/raml-spec/blob/master/raml-0.8.md
+
+title: BigTime SDK
+version: v2
+baseUri: https://iq.bigtime.net/BigtimeData/api/{version}
+mediaType: application/json
+
+/session:
+  displayName: Session
+
+  post:
+    description: Create a session
+    body:
+      application/x-www-form-urlencoded:
+        formParameters:
+          userid:
+            required: true
+            type: string
+          pwd:
+            required: true
+            type: string
+    responses:
+      200:
+        description: Successfully created a session
+        body:
+          application/json:
+            schema: !include schema/session/post.res.json
+
+/staff:
+  displayName: Staff
+
+  get: # defaultQueryParams = {ShowInactive: false};
+    description: Get staff listing
+    responses:
+      200:
+        description: Successfully retrieved a staff listing
+        body:
+          application/json:
+            schema: !include schema/staff/get.res.json
+
+  /detail/{staffId}:
+    displayName: Staff Detail
+
+    get: # defaultQueryParams = {View: 'Detailed'},
+      description: Get staff detail
+      responses:
+        200:
+          description: Successfully retrieved individual staff details
+          body:
+            application/json:
+              schema: !include schema/staff/detail/get.res.json
+
+/time:
+  displayName: Time
+
+  post: # defaultQueryParams = {MarkSubmitted: false}
+    description: Create a time entry
+    body:
+      application/x-www-form-urlencoded:
+        formParameters:
+    responses:
+      200:
+        description: Successfully created a time entry
+        body:
+          application/json:
+            schema: !include schema/time/post.res.json
+
+  /Sheet/{staffId}:
+    displayName: Staff Timesheet
+
+    get: # queryParams.StartDt is required and must be in YYYY-MM-DD format; defaultQueryParams = { EndDt: getCurrentDate(), View: 'Detailed' }
+      description: Get individual staff timesheets
+      responses:
+        200:
+          description: Successfully retrieved individual staff time entries
+          body:
+            application/json:
+              schema: !include schema/time/sheet/get.res.json
+
+  /TotalByDay/{staffId}:
+    displayName: Staff Total By Day
+
+    get: # queryParams.StartDt is required and must be in YYYY-MM-DD format; defaultQueryParams = { EndDt: getCurrentDate(), View: 'Detailed' }
+      description: Get individual staff total by day
+      responses:
+        200:
+          description: Successfully retrieved individual staff total by day
+          body:
+            application/json:
+              schema: !include schema/time/total-by-day/get.res.json
+
+  /{id}:
+    displayName: Time Entry
+
+    get:
+      description: Get individual time entry
+      responses:
+        200:
+          description: Successfully retrieved individual time entry
+          body:
+            application/json:
+              schema: !include schema/time/id/get.res.json
+
+    post: # defaultQueryParams = { MarkSubmitted: false }
+      description: Update a time entry
+      body:
+        application/x-www-form-urlencoded:
+          formParameters:
+      responses:
+        200:
+          description:
+          body:
+            application/json:
+              schema: !include schema/time/id/post.res.json
+
+    delete:
+      description: Delete a time entry
+      body:
+        application/x-www-form-urlencoded:
+          formParameters:
+      responses:
+        200:
+          description:
+          body:
+            application/json:
+              schema: !include schema/time/id/delete.res.json

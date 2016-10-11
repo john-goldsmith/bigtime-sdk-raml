@@ -1,0 +1,12 @@
+
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "Session creation schema",
+  "description": "The response provided after successfully deleting a time entry.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object"
+    }
+  }
+}

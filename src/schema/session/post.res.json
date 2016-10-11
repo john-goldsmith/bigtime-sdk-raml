@@ -1,0 +1,19 @@
+
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "Session creation schema",
+  "description": "The response provided after successfully creating a new session.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["token"],
+      "properties": {
+        "token": {
+          "description": "JWT token",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
